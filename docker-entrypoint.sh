@@ -19,7 +19,7 @@ done
 
 if [ -z "$NO_DEPLOY_DB" ] || [ "$NO_DEPLOY_DB" = false ]; then
   cd /sql;
-  psql -qt -1f /sql/pgver.sql || exit 1
+  psql -qt -v pgver_schema="$DB_SCHEMA" -1f /sql/pgver.sql || exit 1
 fi
 
 cd /opt/app
