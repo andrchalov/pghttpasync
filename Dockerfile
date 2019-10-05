@@ -5,9 +5,8 @@ RUN apt-get update && apt-get install -y \
   python3 \
   python3-pip \
   gosu \
-  libpq-dev
-
-RUN apt-get install -y postgresql-client
+  libpq-dev \
+  postgresql-client
 
 ADD requirements.txt /opt/requirements.txt
 RUN pip3 install -r /opt/requirements.txt
