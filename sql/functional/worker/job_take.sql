@@ -21,7 +21,7 @@ BEGIN
       UPDATE _pghttpreq.job j
         SET taked = now()
         WHERE j.id = v_id
-        RETURNING j.id, j.method, j.url, j.body, hstore_to_json(j.args), j.headers;
+        RETURNING j.id, j.method, j.url, j.body, j.args, j.headers;
   END IF;
 END;
 $function$;

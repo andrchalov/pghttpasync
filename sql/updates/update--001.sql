@@ -5,8 +5,6 @@
 
 CREATE SCHEMA _pghttpreq;
 
-CREATE EXTENSION IF NOT EXISTS hstore;
-
 --------------------------------------------------------------------------------
 CREATE UNLOGGED TABLE _pghttpreq.job (
   id serial NOT NULL,
@@ -14,7 +12,7 @@ CREATE UNLOGGED TABLE _pghttpreq.job (
   method varchar(7) NOT NULL DEFAULT 'GET',
   url text NOT NULL,
   body text,
-  args hstore NOT NULL DEFAULT '',
+  args json NOT NULL DEFAULT '',
   headers json NOT NULL DEFAULT '{"Content-Type": "application/json"}',
   lifetimesec int NOT NULL DEFAULT 86400,
   priority smallint NOT NULL DEFAULT 1,
