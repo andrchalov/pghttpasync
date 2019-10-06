@@ -6,7 +6,7 @@ services:
       - 5432:5432
   pghttpreq:
     build: .
-    image: andrchalov/pghttpreq:latest
+    image: pghttpreq
     environment:
       PGHOST: "db"
       PGUSER: "postgres"

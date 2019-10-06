@@ -12,7 +12,7 @@ CREATE UNLOGGED TABLE _pghttpreq.job (
   method varchar(7) NOT NULL DEFAULT 'GET',
   url text NOT NULL,
   body text,
-  args json NOT NULL DEFAULT '',
+  args json NOT NULL DEFAULT '{}',
   headers json NOT NULL DEFAULT '{"Content-Type": "application/json"}',
   lifetimesec int NOT NULL DEFAULT 86400,
   priority smallint NOT NULL DEFAULT 1,
