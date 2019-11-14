@@ -9,8 +9,8 @@ import logging
 import requests
 from utils.config import get_config
 
+PG_CHANNEL = "pghttpasync"
 CONFIG_TEMPLATE = (
-  ("PG_CHANNEL", "pghttpasync", False),
   ("LOGLEVEL", "INFO", False)
 )
 
@@ -25,10 +25,10 @@ conn.autocommit = True
 
 curs = conn.cursor(cursor_factory=RealDictCursor)
 
-logging.debug("Start listening channel %s" % config["PG_CHANNEL"])
-curs.execute(sql.SQL('LISTEN {};').format(sql.Identifier(config["PG_CHANNEL"])))
+logging.debug("Start listening channel %s" % PG_CHANNEL)
+curs.execute(sql.SQL('LISTEN {};').format(sql.Identifier(PG_CHANNEL)))
 
-logging.debug("Waiting for notifications on channel %s" % config["PG_CHANNEL"])
+logging.debug("Waiting for notifications on channel %s" % PG_CHANNEL)
 
 while True:
   logging.debug(u'Fetching new job')
