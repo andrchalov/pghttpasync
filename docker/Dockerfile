@@ -12,7 +12,6 @@ ADD requirements.txt /opt/requirements.txt
 RUN pip3 install -r /opt/requirements.txt
 
 COPY ./src /opt/app
-COPY ./sql /sql
 
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

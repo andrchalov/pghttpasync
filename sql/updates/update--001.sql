@@ -1,12 +1,12 @@
 --
--- PGHTTPREQ
+-- pghttpasync
 -- update--001.sql
 --
 
-CREATE SCHEMA _pghttpreq AUTHORIZATION :"schema_owner";
+CREATE SCHEMA _pghttpasync AUTHORIZATION :"schema_owner";
 
 --------------------------------------------------------------------------------
-CREATE UNLOGGED TABLE _pghttpreq.job (
+CREATE UNLOGGED TABLE _pghttpasync.job (
   id serial NOT NULL,
   mo timestamptz NOT NULL DEFAULT now(),
   method varchar(7) NOT NULL DEFAULT 'GET',
@@ -27,10 +27,10 @@ CREATE UNLOGGED TABLE _pghttpreq.job (
   response_body text,
   response_headers json,
 
-  CONSTRAINT pghttpreq_pkey PRIMARY KEY (id)
+  CONSTRAINT pghttpasync_pkey PRIMARY KEY (id)
 );
-ALTER TABLE _pghttpreq.job OWNER TO :"schema_owner";
+ALTER TABLE _pghttpasync.job OWNER TO :"schema_owner";
 
-CREATE INDEX job_idx0 ON _pghttpreq.job (priority, mo)
+CREATE INDEX job_idx0 ON _pghttpasync.job (priority, mo)
   WHERE taked ISNULL;
 --------------------------------------------------------------------------------

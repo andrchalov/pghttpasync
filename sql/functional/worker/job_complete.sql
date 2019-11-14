@@ -1,6 +1,6 @@
 
 -------------------------------------------------------------------------------
-CREATE FUNCTION pghttpreq.worker_job_complete(
+CREATE FUNCTION pghttpasync.worker_job_complete(
   a_id int, a_data json
 )
   RETURNS void
@@ -10,7 +10,7 @@ AS $function$
 DECLARE
 
 BEGIN
-  UPDATE _pghttpreq.job
+  UPDATE _pghttpasync.job
     SET complete = now(),
         response_status = (a_data->>'status')::smallint,
         response_body = a_data->>'body',

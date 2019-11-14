@@ -10,7 +10,7 @@ import requests
 from utils.config import get_config
 
 CONFIG_TEMPLATE = (
-  ("PG_CHANNEL", "pghttpreq", False),
+  ("PG_CHANNEL", "pghttpasync", False),
   ("LOGLEVEL", "INFO", False)
 )
 
@@ -32,7 +32,7 @@ logging.debug("Waiting for notifications on channel %s" % config["PG_CHANNEL"])
 
 while True:
   logging.debug(u'Fetching new job')
-  curs.execute('SELECT * FROM pghttpreq.worker_job_take()')
+  curs.execute('SELECT * FROM pghttpasync.worker_job_take()')
   res = curs.fetchone()
 
   if res:
@@ -40,9 +40,9 @@ while True:
     try:
       r = requests.request(res["method"], res["url"], data=res["body"], headers=res["headers"], params=res["args"])
       data = json.dumps({'status': r.status_code, 'body': r.text, 'headers': dict(r.headers)})
-      curs.execute('SELECT pghttpreq.worker_job_complete(%s::int, %s)', (res['id'], data))
+      curs.execute('SELECT pghttpasync.worker_job_complete(%s::int, %s)', (res['id'], data))
     except requests.exceptions.RequestException as e:
-      curs.execute('SELECT pghttpreq.worker_job_failed(%s::int, %s::text)', (res['id'], str(e)))
+      curs.execute('SELECT pghttpasync.worker_job_failed(%s::int, %s::text)', (res['id'], str(e)))
 
   else:
     logging.debug(u'No new jobs')

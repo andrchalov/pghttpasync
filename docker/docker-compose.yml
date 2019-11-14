@@ -4,9 +4,9 @@ services:
     image: postgres
     ports:
       - 5432:5432
-  pghttpreq:
+  pghttpasync:
     build: .
-    image: pghttpreq
+    image: pghttpasync
     environment:
       PGHOST: "db"
       PGUSER: "postgres"

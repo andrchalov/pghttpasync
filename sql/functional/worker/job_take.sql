@@ -1,6 +1,6 @@
 
 -------------------------------------------------------------------------------
-CREATE FUNCTION pghttpreq.worker_job_take()
+CREATE FUNCTION pghttpasync.worker_job_take()
   RETURNS TABLE (
     id int, method varchar(7), url text, body text, args json, headers json
   )
@@ -11,7 +11,7 @@ DECLARE
   v_id int;
 BEGIN
   SELECT j.id INTO v_id
-    FROM _pghttpreq.job j
+    FROM _pghttpasync.job j
     WHERE j.taked ISNULL
     ORDER BY j.priority, j.mo
     FOR UPDATE
@@ -19,7 +19,7 @@ BEGIN
   --
   IF found THEN
     RETURN QUERY
-      UPDATE _pghttpreq.job j
+      UPDATE _pghttpasync.job j
         SET taked = now()
         WHERE j.id = v_id
         RETURNING j.id, j.method, j.url, j.body, j.args, j.headers;

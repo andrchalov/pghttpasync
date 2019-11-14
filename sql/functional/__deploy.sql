@@ -1,6 +1,6 @@
 
-CREATE SCHEMA pghttpreq AUTHORIZATION :"schema_owner";
-GRANT USAGE ON SCHEMA pghttpreq TO pghttpreq;
+CREATE SCHEMA pghttpasync AUTHORIZATION :"schema_owner";
+GRANT USAGE ON SCHEMA pghttpasync TO pghttpasync;
 
 SET LOCAL SESSION AUTHORIZATION :"schema_owner";
 
