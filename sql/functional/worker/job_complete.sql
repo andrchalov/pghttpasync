@@ -5,6 +5,7 @@ CREATE FUNCTION pghttpreq.worker_job_complete(
 )
   RETURNS void
   LANGUAGE plpgsql
+  SECURITY DEFINER
 AS $function$
 DECLARE
 

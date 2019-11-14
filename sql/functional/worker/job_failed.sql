@@ -3,6 +3,7 @@
 CREATE FUNCTION pghttpreq.worker_job_failed(a_id int, a_error text)
   RETURNS void
   LANGUAGE plpgsql
+  SECURITY DEFINER
 AS $function$
 DECLARE
 

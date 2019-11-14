@@ -5,6 +5,7 @@ CREATE FUNCTION pghttpreq.worker_job_take()
     id int, method varchar(7), url text, body text, args json, headers json
   )
   LANGUAGE plpgsql
+  SECURITY DEFINER
 AS $function$
 DECLARE
   v_id int;

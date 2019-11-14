@@ -3,7 +3,7 @@
 -- update--001.sql
 --
 
-CREATE SCHEMA _pghttpreq;
+CREATE SCHEMA _pghttpreq AUTHORIZATION :"schema_owner";
 
 --------------------------------------------------------------------------------
 CREATE UNLOGGED TABLE _pghttpreq.job (
@@ -29,6 +29,7 @@ CREATE UNLOGGED TABLE _pghttpreq.job (
 
   CONSTRAINT pghttpreq_pkey PRIMARY KEY (id)
 );
+ALTER TABLE _pghttpreq.job OWNER TO :"schema_owner";
 
 CREATE INDEX job_idx0 ON _pghttpreq.job (priority, mo)
   WHERE taked ISNULL;

@@ -36,6 +36,7 @@ SELECT :'__pgver_folder_md5sum__' IS NOT DISTINCT FROM :'__pgver_version_md5__' 
 
 \if :quit
 -- scripts not changed from last deployment, exit
+\echo unchanged
 \q
 \endif
 
@@ -75,16 +76,12 @@ CREATE TEMP TABLE __pgver_new_update_files__ AS
     WHERE version > (:'__pgver_version_num__')::int
     ORDER BY version;
 
-SELECT :'__pgver_version_num__';
-SELECT * FROM __pgver_new_update_files__;
-
 -- compose all new updates into single file
 \copy __pgver_new_update_files__ to program 'xargs -n 1 cat > .__pgver_updates.sql'
 \i ./.__pgver_updates.sql
 \! rm ./.__pgver_updates.sql
 
 \i ./functional/__deploy.sql
-
 SELECT :'__pgver_folder_md5sum__'||'|'||version AS __pgver_schema_descr__
   FROM (
     SELECT ((regexp_match(filename, '/update--(\d+)\.sql$'))[1])::int AS version
@@ -96,3 +93,5 @@ SELECT :'__pgver_folder_md5sum__'||'|'||version AS __pgver_schema_descr__
   LIMIT 1 \gset
 
 COMMENT ON SCHEMA :"pgver_schema" IS :'__pgver_schema_descr__';
+
+\echo changed
