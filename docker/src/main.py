@@ -7,20 +7,12 @@ from psycopg2 import sql
 import json
 import logging
 import requests
-from utils.config import get_config
 
 PG_CHANNEL = "pghttpasync"
-CONFIG_TEMPLATE = (
-  ("LOGLEVEL", "INFO", False)
-)
-
 logger = logging.getLogger("main")
-
-config = get_config(CONFIG_TEMPLATE)
-logging.basicConfig(stream=sys.stdout, level=config["LOGLEVEL"])
+logging.basicConfig(stream=sys.stdout, level=os.getenv('LOGLEVEL', 'INFO'))
 
 conn = psycopg2.connect("")
-
 conn.autocommit = True
 
 curs = conn.cursor(cursor_factory=RealDictCursor)
