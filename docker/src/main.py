@@ -7,6 +7,7 @@ from psycopg2 import sql
 import json
 import logging
 import requests
+import os
 
 PG_CHANNEL = "pghttpasync"
 logger = logging.getLogger("main")
