@@ -13,7 +13,7 @@ BEGIN
   SELECT j.id INTO v_id
     FROM _pghttpasync.job j
     WHERE j.taked ISNULL
-    ORDER BY j.priority, j.mo
+    ORDER BY j.priority, j.id
     FOR UPDATE
     LIMIT 1;
   --
