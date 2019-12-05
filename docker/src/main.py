@@ -34,6 +34,7 @@ while True:
       r = requests.request(res["method"], res["url"], data=res["body"], headers=res["headers"], params=res["args"])
       data = json.dumps({'status': r.status_code, 'body': r.text, 'headers': dict(r.headers)})
       curs.execute('SELECT pghttpasync.worker_job_complete(%s::int, %s)', (res['id'], data))
+      continue
     except requests.exceptions.RequestException as e:
       curs.execute('SELECT pghttpasync.worker_job_failed(%s::int, %s::text)', (res['id'], str(e)))
 
