@@ -1,15 +1,20 @@
-FROM ubuntu:18.04
+FROM alpine:edge
 
-RUN apt-get update && apt-get install -y \
-  build-essential \
+RUN apk add --no-cache --virtual .build-deps \
+  build-base \
+  python3-dev \
+  postgresql-dev
+
+RUN apk -U --no-cache add \
   python3 \
-  python3-pip \
-  gosu \
-  libpq-dev \
-  postgresql-client
+  postgresql-libs \
+  su-exec && \
+  rm -rf /var/cache/*
 
 ADD requirements.txt /opt/requirements.txt
 RUN pip3 install -r /opt/requirements.txt
+
+RUN apk del .build-deps
 
 COPY ./src /opt/app
 
