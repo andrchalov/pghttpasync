@@ -8,7 +8,7 @@ BEGIN
   IF TG_OP = 'INSERT' THEN
     PERFORM pg_notify('pghttpasync', NEW.id::text);
   END IF;
-  
+
   RETURN NEW;
 END;
 $function$;

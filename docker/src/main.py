@@ -31,7 +31,11 @@ while True:
   if res:
     logging.debug(u'Having new job')
     try:
-      r = requests.request(res["method"], res["url"], data=res["body"].encode('utf-8'), headers=res["headers"], params=res["args"])
+      body = None
+      if res["body"]:
+        body = res["body"].encode('utf-8')
+      
+      r = requests.request(res["method"], res["url"], data=body, headers=res["headers"], params=res["args"])
       data = json.dumps({'status': r.status_code, 'body': r.text, 'headers': dict(r.headers)})
       curs.execute('SELECT pghttpasync.worker_job_complete(%s::int, %s)', (res['id'], data))
       continue
